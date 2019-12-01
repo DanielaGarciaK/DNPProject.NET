@@ -1,0 +1,101 @@
+﻿@model WebApplication1.Models.Workout
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "Workouts")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Workout</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" , @id = "timespan" } })
+                @section Scripts {
+
+                    @Scripts.Render("~/bundles/jqueryui")
+                    @Styles.Render("~/Content/cssjqryUi")
+                    @Scripts.Render("~/bundles/jqueryval")
+                    
+
+                    <script type="text/javascript">
+
+                        $(document).ready(function () {
+                            $('input[type=datetime]').datetimepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                yearRange: "-100:+0",
+                                dateFormat: 'dd-M-yy',
+                                controlType: 'select',
+                                timeFormat: 'hh:mm TT'
+                            });
+
+                        });
+
+                        $(document).ready(function () {
+                            $('#timespan').timepicker({
+                                timeFormat: 'HH:mm:ss',
+                                interval: 1,
+                                defaultTime: '00:00:00',
+                                maxTime: '6:00am',
+                                dropdown: true,
+                                scrollbar: true
+
+                            });
+                        });
+                    </script>
+
+                }
+                @Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.caloriesBurnt, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.caloriesBurnt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.caloriesBurnt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.startTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.startTime, new { htmlAttributes = new { @class = "form-control" } })
+                <script>
+                        
+                </script>
+                @Html.ValidationMessageFor(model => model.startTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
